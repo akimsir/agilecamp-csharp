@@ -1,0 +1,15 @@
+﻿
+
+<div class="jumbotron">
+    <h1>@ViewBag.Message</h1>
+</div>
+
+<form action="/Home/Habbit" method="post">
+    <input type="text" name="habbitName"/> <input type="submit" name="Добавить"/>
+</form>
+<ul>
+@foreach (var habbit in ViewBag.habbits)
+{
+    <li>@habbit</li>
+}
+</ul>
