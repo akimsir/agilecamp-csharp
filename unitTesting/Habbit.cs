@@ -10,12 +10,14 @@ namespace unitTesting
 {
     public class Habbit
     {
-        public void Add(string name)
+        public string Add(string name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) || name.Length < 2)
             {
                 throw new ArgumentException();
             }
+
+            return "Привычка: " + name;
         }
 
 
@@ -29,7 +31,37 @@ namespace unitTesting
             }
         );
         }
-        
+
+        [Test]
+        public void HabbitValidationMinLength()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var habbit = new Habbit();
+                habbit.Add("1");
+            }
+            );
+        }
+
+        [Test]
+        public void HabbitValidationValidName()
+        {
+            Assert.DoesNotThrow(() =>
+            {
+                var habbit = new Habbit();
+                habbit.Add("Abc");
+            }
+            );
+        }
+
+        [Test]
+        public void HabbitValidationValidNamePrefix()
+        {
+            var habbit = new Habbit();
+            var name = "abc";
+
+            Assert.IsTrue(habbit.Add(name).Equals("Привычка: " + name));
+        }
 
         //[Test]
         //public void SeccundFailTest()
@@ -63,21 +95,21 @@ namespace unitTesting
         //    Assert.Throws<NullReferenceException>(() => { nullStr.Length.ToString(); });
         //}
 
-        public static int _random = 3;
+        //public static int _random = 3;
 
-        [Test]
-        public void Repeating()
-        {
-            _random = new Random().Next(0, 60);
+        //[Test]
+        //public void Repeating()
+        //{
+        //    _random = new Random().Next(0, 60);
 
-            Assert.AreEqual(2, _random);
-        }
+        //    Assert.AreEqual(2, _random);
+        //}
 
-        [Test]
-        public void Repeating2()
-        {
-            Assert.AreEqual(_random, DateTime.Now.Second);
-        }
+        //[Test]
+        //public void Repeating2()
+        //{
+        //    Assert.AreEqual(_random, DateTime.Now.Second);
+        //}
 
 
     }
